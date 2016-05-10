@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "redis-3"
+spec:
+  selector:
+    app: "redis"
+    name: "redis-3"
+  ports:
+    - name: "redis"
+      protocol: "TCP"
+      port: 6379
+      targetPort: 6379
+    - name: "cluster"
+      protocol: "TCP"
+      port: 16379
+      targetPort: 16379
+  clusterIP: "10.131.242.3"

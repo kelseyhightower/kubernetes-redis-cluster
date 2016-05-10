@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: "redis-6"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+        name: "redis-6"
+    spec:
+      containers:
+        - name: redis
+          image: "redis:3.2.0-alpine"
+          command:
+            - "redis-server"
+          args:
+            - "/etc/redis/redis.conf"
+            - "--protected-mode"
+            - "no"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+          ports:
+            - name: redis
+              containerPort: 6379
+              protocol: "TCP"
+            - name: cluster
+              containerPort: 16379
+              protocol: "TCP"
+          volumeMounts:
+            - name: "redis-conf"
+              mountPath: "/etc/redis"
+            - name: "redis-data"
+              mountPath: "/var/lib/redis"
+      volumes:
+        - name: "redis-data"
+          gcePersistentDisk:
+            pdName: "redis-6"
+            fsType: ext4
+        - name: "redis-conf"
+          configMap:
+            name: "redis-conf"
+            items:
+              - key: "redis.conf"
+                path: "redis.conf"

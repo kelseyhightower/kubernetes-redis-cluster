@@ -1,5 +1,5 @@
 apiVersion: extensions/v1beta1
-kind: ReplicaSet
+kind: Deployment
 metadata:
   name: "redis-4"
 spec:
@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: "redis:3.2.0-alpine"
+          image: "redis:3.2.8"
           command:
             - "redis-server"
           args:
@@ -37,9 +37,8 @@ spec:
               mountPath: "/var/lib/redis"
       volumes:
         - name: "redis-data"
-          gcePersistentDisk:
-            pdName: "redis-4"
-            fsType: ext4
+          persistentVolumeClaim:
+            claimName: nfs-vol4-claim
         - name: "redis-conf"
           configMap:
             name: "redis-conf"

@@ -14,3 +14,4 @@ spec:
       protocol: "TCP"
       port: 16379
       targetPort: 16379
+  type: LoadBalancer

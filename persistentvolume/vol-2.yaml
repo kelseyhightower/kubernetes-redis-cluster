@@ -4,6 +4,9 @@ metadata:
   name: nfs-vol2
   labels:
     path: nfsshare2
+    type: redis-nfs
+    app: redis
+    podindex: "1"
 spec:
   capacity:
     storage: 1Gi
@@ -11,4 +14,4 @@ spec:
     - ReadWriteMany
   nfs:
     server: 192.168.1.1
-    path: "/home/nfs/nfsshare2"
+    path: "/data/store/share/n2"

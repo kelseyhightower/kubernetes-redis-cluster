@@ -30,7 +30,7 @@ kubectl create -f deployment
 ### Create Redis Services
 
 ```
-kubectl create -f services
+kubectl create -f deployment-services
 ```
 
 ### Connect Nodes

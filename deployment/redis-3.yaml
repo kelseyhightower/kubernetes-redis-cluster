@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: "redis-data"
           persistentVolumeClaim:
-            claimName: nfs-vol3-claim
+            claimName: redis-data-redis-app-2
         - name: "redis-conf"
           configMap:
             name: "redis-conf"

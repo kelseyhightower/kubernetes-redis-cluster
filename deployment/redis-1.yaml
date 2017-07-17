@@ -12,13 +12,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: "redis:3.2.8"
-          command:
-            - "redis-server"
-          args:
-            - "/etc/redis/redis.conf"
-            - "--protected-mode"
-            - "no"
+          image: "localrepo:5000/redis/redis-4.0.0:v1"
           resources:
             requests:
               cpu: "100m"
@@ -35,13 +29,15 @@ spec:
               mountPath: "/etc/redis"
             - name: "redis-data"
               mountPath: "/var/lib/redis"
+      imagePullSecrets:
+        - name: regsecret
       volumes:
         - name: "redis-data"
           persistentVolumeClaim:
             claimName: redis-data-redis-app-0
         - name: "redis-conf"
           configMap:
-            name: "redis-conf"
+            name: "redis-1-cm"
             items:
               - key: "redis.conf"
                 path: "redis.conf"

@@ -1,4 +1,8 @@
-# Kubernetes Redis Cluster
+# Kubernetes Redis-4.0.0 Cluster
+
+
+### [Build Docker image](README-build-docker.md)
+
 
 ### Create NFS storages
 
@@ -18,19 +22,19 @@ kubectl create -f persistentvolumeclaims
 ### Create Redis Cluster Configuration
 
 ```
-kubectl create configmap redis-conf --from-file=redis.conf
-```
-
-### Create Redis Nodes
-
-```
-kubectl create -f deployment
+kubectl create -f deployment-configmaps
 ```
 
 ### Create Redis Services
 
 ```
 kubectl create -f deployment-services
+```
+
+### Create Redis Nodes
+
+```
+kubectl create -f deployment
 ```
 
 ### Connect Nodes
@@ -43,23 +47,18 @@ kubectl run -i --tty ubuntu --image=ubuntu \
 ```
 apt-get update
 apt-get install -y vim wget python2.7 python-pip redis-tools dnsutils
-```
-
-*Note:* `redis-trib` doesn't support hostnames (see [this issue](https://github.com/antirez/redis/issues/2565)), so we use `dig` to resolve our cluster IPs.
-
-```
-pip install redis-trib
+wget http://download.redis.io/redis-stable/src/redis-trib.rb
+chmod 755 redis-trib.rb
 ```
 
 ```
-redis-trib.py create \
-  `dig +short redis-1.default.svc.cluster.local`:6379 \
-  `dig +short redis-2.default.svc.cluster.local`:6379 \
-  `dig +short redis-3.default.svc.cluster.local`:6379
-
-redis-trib.py replicate --master-addr `dig +short redis-1.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-4.default.svc.cluster.local`:6379
-redis-trib.py replicate --master-addr `dig +short redis-2.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-5.default.svc.cluster.local`:6379
-redis-trib.py replicate --master-addr `dig +short redis-3.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-6.default.svc.cluster.local`:6379
+./redis-trib.rb create --replicas 1 \
+  10.111.103.1:6379 \
+  10.111.103.2:6379 \
+  10.111.103.3:6379 \
+  10.111.103.4:6379 \
+  10.111.103.5:6379 \
+  10.111.103.6:6379
 ```
 
 ### Accessing redis cli

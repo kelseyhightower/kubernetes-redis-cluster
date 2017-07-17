@@ -57,9 +57,15 @@ redis-trib.py create \
   `dig +short redis-app-1.redis-service.default.svc.cluster.local`:6379 \
   `dig +short redis-app-2.redis-service.default.svc.cluster.local`:6379
 
-redis-trib.py replicate --master-addr `dig +short redis-app-0.redis-service.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-app-3.redis-service.default.svc.cluster.local`:6379
-redis-trib.py replicate --master-addr `dig +short redis-app-1.redis-service.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-app-4.redis-service.default.svc.cluster.local`:6379
-redis-trib.py replicate --master-addr `dig +short redis-app-2.redis-service.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-app-5.redis-service.default.svc.cluster.local`:6379
+redis-trib.py replicate \
+  --master-addr `dig +short redis-app-0.redis-service.default.svc.cluster.local`:6379 \
+  --slave-addr `dig +short redis-app-3.redis-service.default.svc.cluster.local`:6379
+redis-trib.py replicate \
+  --master-addr `dig +short redis-app-1.redis-service.default.svc.cluster.local`:6379 \
+  --slave-addr `dig +short redis-app-4.redis-service.default.svc.cluster.local`:6379
+redis-trib.py replicate \
+  --master-addr `dig +short redis-app-2.redis-service.default.svc.cluster.local`:6379 
+  --slave-addr `dig +short redis-app-5.redis-service.default.svc.cluster.local`:6379
 ```
 
 ### Accessing redis cli

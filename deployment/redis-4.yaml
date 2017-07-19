@@ -10,6 +10,18 @@ spec:
         app: redis
         name: "redis-4"
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - redis
+              topologyKey: kubernetes.io/hostname
       containers:
         - name: redis
           image: "localrepo:5000/redis/redis-4.0.0:v1"

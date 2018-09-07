@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-2-cm
+data:
+  redis.conf: |
+    appendonly no
+    protected-mode no
+    cluster-enabled yes
+    cluster-config-file /var/lib/redis/nodes.conf
+    cluster-node-timeout 5000
+    dir /var/lib/redis
+    port 6379
+    cluster-announce-port 6379
+    cluster-announce-bus-port 16379
+    cluster-announce-ip 10.111.103.2

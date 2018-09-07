@@ -15,4 +15,4 @@ spec:
       protocol: "TCP"
       port: 16379
       targetPort: 16379
-  clusterIP: "10.131.242.6"
+  clusterIP: "10.111.103.6"

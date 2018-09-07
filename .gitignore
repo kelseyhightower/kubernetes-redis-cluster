@@ -1,0 +1,6 @@
+*.class
+*.DS_Store
+*.classpath
+*.idea
+*.project
+*.iml

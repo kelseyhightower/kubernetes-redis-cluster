@@ -1,0 +1,3 @@
+#!/bin/ash
+echo "* $(redis-server --version)"
+echo "* Alpine Linux $(cat /etc/alpine-release)"

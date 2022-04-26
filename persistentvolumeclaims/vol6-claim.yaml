@@ -1,0 +1,18 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: redis-data-redis-app-5
+  labels:
+    type: redis-nfs-claim
+    app: redis
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      path: nfsshare6
+      app: redis
+      podindex: "5"
